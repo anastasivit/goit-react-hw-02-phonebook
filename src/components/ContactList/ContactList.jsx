@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ContactListItem from '../ContactListItem/ContactListItem';
 import styles from './ContactList.module.css';
 
 const ContactList = ({ contacts, filter, onDeleteContact }) => {
@@ -10,17 +11,11 @@ const ContactList = ({ contacts, filter, onDeleteContact }) => {
   return (
     <ul className={styles.list}>
       {filteredContacts.map(contact => (
-        <li key={contact.id} className={styles.item}>
-          <span>{contact.name}</span>
-          <span>{contact.number}</span>
-          <button
-            className={styles.button}
-            type="button"
-            onClick={() => onDeleteContact(contact.id)}
-          >
-            Delete
-          </button>
-        </li>
+        <ContactListItem
+          key={contact.id}
+          contact={contact}
+          onDeleteContact={onDeleteContact}
+        />
       ))}
     </ul>
   );
@@ -34,7 +29,7 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  filter: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired, // Додано властивість filter
   onDeleteContact: PropTypes.func.isRequired,
 };
 

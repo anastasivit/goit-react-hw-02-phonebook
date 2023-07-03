@@ -1,7 +1,8 @@
+// App.jsx
 import React, { Component } from 'react';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 import styles from './App.module.css';
 
 class App extends Component {
@@ -9,24 +10,6 @@ class App extends Component {
     contacts: [],
     filter: '',
   };
-
-  render() {
-    const { contacts, filter } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <h1 className={styles.heading}>Phonebook</h1>
-        <ContactForm contacts={contacts} onAddContact={this.handleAddContact} />
-        <h2 className={styles.heading}>Contacts</h2>
-        <Filter value={filter} onChange={this.handleFilterChange} />
-        <ContactList
-          contacts={contacts}
-          filter={filter}
-          onDeleteContact={this.handleDeleteContact}
-        />
-      </div>
-    );
-  }
 
   handleFilterChange = filter => {
     this.setState({ filter });
@@ -50,6 +33,7 @@ class App extends Component {
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
+      filter: '',
     }));
   };
 
@@ -58,6 +42,27 @@ class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+
+  render() {
+    const { contacts, filter } = this.state;
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    return (
+      <div className={styles.container}>
+        <h1 className={styles.heading}>Phonebook</h1>
+        <ContactForm contacts={contacts} onAddContact={this.handleAddContact} />
+        <h2 className={styles.heading}>Contacts</h2>
+        <Filter value={filter} onChange={this.handleFilterChange} />
+        <ContactList
+          contacts={filteredContacts}
+          filter={filter}
+          onDeleteContact={this.handleDeleteContact}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
