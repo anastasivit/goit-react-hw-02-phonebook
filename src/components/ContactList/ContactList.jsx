@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import ContactListItem from '../ContactListItem/ContactListItem';
 import styles from './ContactList.module.css';
 
-const ContactList = ({ contacts, filter, onDeleteContact }) => {
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
+const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <ul className={styles.list}>
-      {filteredContacts.map(contact => (
+      {contacts.map(contact => (
         <ContactListItem
           key={contact.id}
           contact={contact}
@@ -29,7 +25,6 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  filter: PropTypes.string.isRequired, // Додано властивість filter
   onDeleteContact: PropTypes.func.isRequired,
 };
 

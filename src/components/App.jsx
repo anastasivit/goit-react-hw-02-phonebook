@@ -1,4 +1,3 @@
-// App.jsx
 import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
@@ -57,7 +56,6 @@ class App extends Component {
         <Filter value={filter} onChange={this.handleFilterChange} />
         <ContactList
           contacts={filteredContacts}
-          filter={filter}
           onDeleteContact={this.handleDeleteContact}
         />
       </div>

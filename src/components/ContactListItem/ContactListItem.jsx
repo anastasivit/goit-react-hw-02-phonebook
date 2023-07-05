@@ -6,7 +6,7 @@ const ContactListItem = ({ contact, onDeleteContact }) => {
   const { id, name, number } = contact;
 
   return (
-    <li key={id} className={styles.item}>
+    <li className={styles.item}>
       <span>{name}</span>
       <span>{number}</span>
       <button
